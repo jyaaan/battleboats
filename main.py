@@ -28,9 +28,39 @@ import time
 from board import Board
 from util import Symbol
 
+
+def main():
+    print("Welcome to Battleboats!")
+    size = int(input("Enter the size of the board: "))
+    board = Board(size)
+
+    print("Initial Board:")
+    board.draw_board()
+
+    while True:
+        try:
+            # Get user input for ship placement
+            row, col = map(int, input(f"Enter the row and column (0-{size-1}) to place a ship, separated by a space: ").split())
+            
+            # Place the ship
+            board.set_board_pos((col, row), Symbol.SHIP.value)
+            
+            # Display updated board
+            print("Updated Board:")
+            board.draw_board()
+        except IndexError:
+            print(f"Invalid position! Please enter values between 0 and {size-1}.")
+        except ValueError:
+            print("Invalid input! Please enter two numbers separated by a space.")
+        except KeyboardInterrupt:
+            print("\nExiting game. Goodbye!")
+            break
+
+
 if __name__ == "__main__":
-    board = Board(5)
-    board.draw_board()
-    time.sleep(2)
-    board.set_board_pos((14, 2), Symbol.SHIP.value)
-    board.draw_board()
+    # board = Board(5)
+    # board.draw_board()
+    # time.sleep(2)
+    # board.set_board_pos((2, 2), Symbol.SHIP.value)
+    # board.draw_board()
+    main()
